@@ -17,5 +17,5 @@ clean:
 	-rm *.a
 	-rm src/*.o
 
-# lint:
-# 	clang-tidy src/*.c src/include/*.h
+lint:
+	clang-tidy src/*.c src/include/*.h

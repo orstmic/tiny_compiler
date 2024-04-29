@@ -2,4 +2,6 @@
 *.o
 *.a
 src/*.o
+github_token
 .vscode/
+build/
