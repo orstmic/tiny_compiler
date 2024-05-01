@@ -3,3 +3,5 @@
 *.a
 src/*.o
 .vscode/
+github_token
+build/*
