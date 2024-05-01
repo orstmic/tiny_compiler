@@ -9,14 +9,15 @@ void tac_compile(char* src)
     lexer_T* lexer = init_lexer(src);
     parser_T* parser = init_parser(lexer);
     AST_T* root = parser_parse(parser);
-    printf("%p\n", root);
+    // printf("%p\n", root);
+    printf("%d\n.", root->children->size);
     
     /*token_T* tok = 0;
     while((tok = lexer_next_token(lexer))->type != TOKEN_EOF)
     {
         printf("%s", token_to_str(tok));
     }
-*/  printf
+*/  
 }
 
 

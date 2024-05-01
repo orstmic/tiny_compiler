@@ -4,4 +4,4 @@
 src/*.o
 github_token
 .vscode/
-build/
+build/*
