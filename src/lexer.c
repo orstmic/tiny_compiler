@@ -34,6 +34,7 @@ char lexer_peek(lexer_T* lexer, int offset)
 token_T* lexer_advance_with(lexer_T* lexer, token_T* token)
 {
     lexer_advance(lexer);
+    lexer_advance(lexer);
     return token;
 }
 
@@ -95,23 +96,23 @@ token_T* lexer_next_token(lexer_T* lexer)
     {
         lexer_skip_whitespace(lexer);
         if(isalpha(lexer->c))
-            return lexer_advance_with(lexer, lexer_parse_id(lexer));
+            return lexer_parse_id(lexer);
         
         if(isdigit(lexer->c))
-            return lexer_advance_with(lexer, lexer_parse_number(lexer));
+            return lexer_parse_number(lexer);
 
         switch(lexer->c)
         {
             case '=':{
                 if(lexer_peek(lexer, 1) == '>')  return lexer_advance_with(lexer, init_token("=>", TOKEN_ARROW_RIGHT));
-                    return lexer_advance_with(lexer, init_token("=", TOKEN_EQUALS));
+                    return lexer_advance_current(lexer, TOKEN_EQUALS);
             }break;
             case '(': return lexer_advance_current(lexer, TOKEN_LPAREN);
             case ')': return lexer_advance_current(lexer, TOKEN_RPAREN);
             case '{': return lexer_advance_current(lexer, TOKEN_LBRACE);
             case '}': return lexer_advance_current(lexer, TOKEN_RBRACE);
             case ':': return lexer_advance_current(lexer, TOKEN_COLON);
-            case '.': return lexer_advance_current(lexer, TOKEN_COMMA);
+            case ',': return lexer_advance_current(lexer, TOKEN_COMMA);
             case '<': return lexer_advance_current(lexer, TOKEN_LT);
             case '>': return lexer_advance_current(lexer, TOKEN_GT);
             case ';': return lexer_advance_current(lexer, TOKEN_SEMI);

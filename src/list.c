@@ -10,9 +10,12 @@ list_T* init_list(size_t item_size)
     return list;
 }
 
+/**
+ * 对于该方法，将item动态存储到list中
+*/
 void list_push(list_T* list, void* item)
 {
-    list->item_size += 1;
+    list->size += 1;
     if(!list->items)
     {
         list->items = calloc(1, list->item_size);
@@ -22,4 +25,5 @@ void list_push(list_T* list, void* item)
         list->items = realloc(list->items, (list->size * list->item_size));
     }
     list->items[list->size] = item;
+
 }

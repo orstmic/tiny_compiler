@@ -19,6 +19,10 @@ AST_T* parser_parse_expr(parser_T* parser);
 
 AST_T* parser_parse_list(parser_T* parser);
 
+AST_T* parser_parse_func(parser_T* parser);
+
 AST_T* parser_parse_compound(parser_T* parser);
+
+AST_T* parser_parse_int(parser_T* parser);
 
 #endif
