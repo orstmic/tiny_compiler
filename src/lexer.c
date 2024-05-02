@@ -34,7 +34,6 @@ char lexer_peek(lexer_T* lexer, int offset)
 token_T* lexer_advance_with(lexer_T* lexer, token_T* token)
 {
     lexer_advance(lexer);
-    lexer_advance(lexer);
     return token;
 }
 
@@ -104,7 +103,7 @@ token_T* lexer_next_token(lexer_T* lexer)
         switch(lexer->c)
         {
             case '=':{
-                if(lexer_peek(lexer, 1) == '>')  return lexer_advance_with(lexer, init_token("=>", TOKEN_ARROW_RIGHT));
+                if(lexer_peek(lexer, 1) == '>')  return lexer_advance_with(lexer, lexer_advance_with(lexer, init_token("=>", TOKEN_ARROW_RIGHT)));
                     return lexer_advance_current(lexer, TOKEN_EQUALS);
             }break;
             case '(': return lexer_advance_current(lexer, TOKEN_LPAREN);
