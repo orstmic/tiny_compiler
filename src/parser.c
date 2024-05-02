@@ -167,7 +167,7 @@ AST_T* parser_parse_list(parser_T* parser)
     {
         parser_eat(parser, TOKEN_ARROW_RIGHT);
         compound->type = AST_FUNCTION;
-        compound->value = parser_parse_block(parser);
+        compound->value = parser_parse_compound(parser);
 
     }
 
@@ -215,7 +215,15 @@ AST_T* parser_parse_compound(parser_T* parser)
     // 初始化ast节点的同时，初始化该节点存储子节点的容器【list_T】
     AST_T* compound = init_ast(AST_COMPOUND);
 
-    while(parser->token->type != TOKEN_EOF)
+    unsigned int should_close = 0;
+
+    if(parser->token->type == TOKEN_LBRACE)
+    {
+        parser_eat(parser, TOKEN_LBRACE);
+        should_close = 1;
+    }
+
+    while(parser->token->type != TOKEN_EOF && parser->token->type != TOKEN_RBRACE)
     {
         /**
          * 如果不加判断的话，如下，就会进入死循环
@@ -227,8 +235,11 @@ AST_T* parser_parse_compound(parser_T* parser)
         // 因此让它进入parser_parse_expr
         list_push(compound->children, parser_parse_expr(parser));
 
-
+        if(parser->token->type == TOKEN_SEMI)
+        parser_eat(parser, TOKEN_SEMI);
     }
+    if(should_close)
+        parser_eat(parser, TOKEN_RBRACE);
 
     return compound;
 }
