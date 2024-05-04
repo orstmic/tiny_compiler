@@ -50,6 +50,9 @@ AST_T* parser_parse_id(parser_T* parser)
         parser_eat(parser, TOKEN_EQUALS);
         AST_T* ast = init_ast(AST_ASSIGNMENT);
         ast->name = value;
+        
+
+        // 等号后面是赋值表达式，所以ast->value 指向的就是等号后面的内容【各个AST节点】
         ast->value = parser_parse_expr(parser);
 
         return ast;
@@ -84,7 +87,7 @@ AST_T* parser_parse_id(parser_T* parser)
     
     // 如果TOKEN_ID后面又出现了`()`，说明有可能是函数调用————这里考虑最简单的函数调用
     // 后面如果有需要，可以再补充
-    else if(parser->token->type == TOKEN_LBRACE)
+    else if(parser->token->type == TOKEN_LPAREN)
         {
             ast->type = AST_CALL;
             ast->value = parser_parse_list(parser);
@@ -216,7 +219,9 @@ AST_T* parser_parse_compound(parser_T* parser)
     AST_T* compound = init_ast(AST_COMPOUND);
 
     unsigned int should_close = 0;
+    
 
+    // 当前的token-type是`{}`的时候，说明进入了函数主体
     if(parser->token->type == TOKEN_LBRACE)
     {
         parser_eat(parser, TOKEN_LBRACE);

@@ -13,3 +13,20 @@ AST_T* init_ast(int type)
 
     return ast;
 }
+
+const char* ast_type_to_str(int type)
+{
+    switch(type){
+        case        AST_COMPOUND:               return "AST_COMPOUND";
+        case        AST_ASSIGNMENT:             return "AST_ASSIGNMENT";
+        case        AST_FUNCTION:               return "AST_FUNCTION";
+        case        AST_CALL:                   return "AST_CALL";
+        case        AST_INT:                    return "AST_INT";
+        case        AST_DEFINITION_TYPE:        return "AST_DEFINITION_TYPE";
+        case        AST_VARIABLE:               return "AST_VARIABLE";
+        case        AST_STATEMENT:              return "AST_STATEMENT";
+        case        AST_NOOP:                   return "AST_NOOP";
+    }
+
+    return "not_stringable";
+}

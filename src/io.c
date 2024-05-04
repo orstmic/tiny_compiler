@@ -1,6 +1,8 @@
 #include "include/io.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 char* tac_read_file(const char* filename)
 {
@@ -30,4 +32,21 @@ char* tac_read_file(const char* filename)
         free(line);
 
     return buffer;
+}
+
+void tac_write_file(const char* filename, char* outbuffer)
+{
+    const FILE* fp;
+
+    fp = fopen(filename, "wb");
+    if(fp == NULL)
+    {
+        printf("Could not open file for writing `%s`\n", filename);
+        exit(1);
+    }
+
+    fputs(outbuffer, fp);
+
+    fclose(fp);
+
 }

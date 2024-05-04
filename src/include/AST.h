@@ -24,4 +24,6 @@ typedef struct AST_STRUCT
 
 AST_T* init_ast(int type);
 
+const char* ast_type_to_str(int type);
+
 #endif
